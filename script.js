@@ -4,7 +4,7 @@ function main() {
 
   function adjustBoard(board) {
     chrome.storage.sync.get(['scrollo_positions'], function (result) {
-      if (result.scrollo_positions) {
+      if (result && result.scrollo_positions) {
         const currentBoard = window.location.href.split('/')[4];
         if (result.scrollo_positions[currentBoard])
           board.scrollTo({
@@ -24,6 +24,7 @@ function main() {
         const currentBoard = window.location.href.split('/')[4];
 
         chrome.storage.sync.get(['scrollo_positions'], function (result) {
+          if (!result) return;
           if (result.scrollo_positions) {
             const positions = result.scrollo_positions;
             positions[currentBoard] = board.scrollLeft;
